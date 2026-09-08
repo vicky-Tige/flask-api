@@ -48,7 +48,7 @@ class Purchase(Base):
 
      
     id:Mapped[int] = mapped_column(Integer, primary_key=True)
-    Product_id : Mapped[int] = mapped_column(ForeignKey("products.id"))
+    product_id : Mapped[int] = mapped_column(ForeignKey("products.id"))
     quantity : Mapped[int] = mapped_column(Integer)
     purchase_date  : Mapped[date] = mapped_column(Date)
     supplier : Mapped[str] = mapped_column(String(100))
@@ -70,16 +70,14 @@ class Sales_detail(Base):
     __tablename__ = "sales_details"
 
     id:Mapped[int] = mapped_column(Integer, primary_key=True)
-    Product_id : Mapped[int] = mapped_column(ForeignKey("products.id"))
+    product_id : Mapped[int] = mapped_column(ForeignKey("products.id"))
     sales_id : Mapped[int] = mapped_column(ForeignKey("sales.id"))
     quantity  : Mapped[int] = mapped_column(Integer)
-    buying_price : Mapped[float] = mapped_column(Float)
-    total_amount : Mapped[float] = mapped_column(Float)
-
+   
 class Payment(Base):
     __tablename__ ="payments"
 
     id:Mapped[int] = mapped_column(Integer,primary_key=True)
     sales_id: Mapped[int ] =mapped_column(ForeignKey("sales.id"))
     payment_method: Mapped[str] = mapped_column(String(200))
-    Payment_date: Mapped[date] = mapped_column(Date)
+    payment_date: Mapped[date] = mapped_column(Date)
