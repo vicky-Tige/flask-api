@@ -1,17 +1,13 @@
 from sqlalchemy import ForeignKey
-from sqlalchemy import String,Integer,Float,Date
+from sqlalchemy import String,Integer,Float,Date,DateTime
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
-from datetime import date
+from datetime import date,datetime
 
 class Base(DeclarativeBase):
     pass
-
-
-
-
 
 class User(Base):
    
@@ -22,16 +18,6 @@ class User(Base):
    email : Mapped[str] =mapped_column(String(100))
    password : Mapped[str]=mapped_column(String(200))
 
-
-   
-   
-   
-
-
-
-
-    
-
 class Product(Base):
     __tablename__ =  "products"
 
@@ -40,7 +26,7 @@ class Product(Base):
     product_name: Mapped[str] = mapped_column(String(100))
     buying_price : Mapped[float] = mapped_column(Float)
     selling_price  : Mapped[float] = mapped_column(Float)
-
+    created_at:Mapped[datetime]=mapped_column(DateTime)
 
 
 class Purchase(Base):
@@ -62,10 +48,6 @@ class Sale(Base):
     sales_date : Mapped[date] = mapped_column(Date)
     total_amount : Mapped[float] = mapped_column(Float)
   
-    
-
-     
-
 class Sales_detail(Base):
     __tablename__ = "sales_details"
 
@@ -79,5 +61,9 @@ class Payment(Base):
 
     id:Mapped[int] = mapped_column(Integer,primary_key=True)
     sales_id: Mapped[int ] =mapped_column(ForeignKey("sales.id"))
-    payment_method: Mapped[str] = mapped_column(String(200))
-    payment_date: Mapped[date] = mapped_column(Date)
+    amount: Mapped[float] = mapped_column(Float)
+    transaction_code:Mapped[str]=mapped_column(String,nullable=True,default=None)
+    mrid:Mapped[str]=mapped_column(String)
+    crid:Mapped[str]=mapped_column(String)
+    status:Mapped[str]=mapped_column(String,default="pending")
+    phone_number:Mapped[str]=mapped_column(String)
